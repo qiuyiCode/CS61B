@@ -1,7 +1,7 @@
 import javax.xml.stream.util.StreamReaderDelegate;
 
 public class NBody {
-  public static String image_toDrawn = "./images/starfield.jpg";
+  private static String image_toDrawn = "./images/starfield.jpg";
 
   public static double readRadius(String file){
     In in = new In(file);
