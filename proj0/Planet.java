@@ -1,13 +1,13 @@
 public class Planet {
   // static varible
-  public static double G = 6.67e-11;
+  private static double G = 6.67e-11;
 
-  double xxPos; // Its current x position
-  double yyPos; // Its current y position
-  double xxVel; // Its current velocity in the x direction
-  double yyVel; // Its current velocity in the y direction
-  double mass;  // Its mass
-  String imgFileName;
+  public double xxPos; // Its current x position
+  public double yyPos; // Its current y position
+  public double xxVel; // Its current velocity in the x direction
+  public double yyVel; // Its current velocity in the y direction
+  public double mass;  // Its mass
+  public String imgFileName;
 
   public Planet(double xP,double yP,double xV,double yV,double m,String img){
     this.xxPos = xP;
