@@ -1,13 +1,8 @@
-package q.tolearn.cs61b.proj1a;
-
 /*
 * 1. add and remove operations must not involve any looping or recursion.operation must take constant time.
 * 2. get must use iteration,not recursion
 * 3. size must take constant time.
 */
-
-import javax.swing.plaf.basic.BasicOptionPaneUI;
-
 public class LinkedListDeque<T> {
   private class DDLNode {
     public T item;
