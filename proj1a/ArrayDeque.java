@@ -6,8 +6,8 @@ public class ArrayDeque<T> {
 
     public ArrayDeque() {
         this.items = (T[]) new Object[8];
-        this.nextFirst = 0;
-        this.nextLast = 0;
+        this.nextFirst = 4;
+        this.nextLast = 5;
         this.size = 0;
     }
 
@@ -22,27 +22,27 @@ public class ArrayDeque<T> {
     */
 
     private void resize(int capacity) {
-        T[] tmp = (T[]) new Object[capacity * 2];
-        System.arraycopy(this.items, nextFirst, tmp, nextFirst, this.size);
+        T[] tmp = (T[])new Object[capacity * 2];
+        System.arraycopy(this.items, 0, tmp, 0, this.items.length);
         this.items = tmp;
     }
 
     public void addFirst(T item) {
-        if ((this.size() != 0 && this.nextFirst - 1 == this.nextLast)) {
+        if ((this.size() != 0 && this.nextFirst + 1 == this.nextLast)) {
             this.resize(this.items.length * 2);
         }
 
         this.items[nextFirst] = item;
         this.nextFirst = this.nextFirst - 1;
 
-        if (this.nextFirst == 0) {
+        if (this.nextFirst < 0) {
             this.nextFirst = this.items.length - 1;
         }
         this.size++;
     }
 
     public void addLast(T item) {
-        if ((this.size() != 0 && this.nextFirst + 1 == this.nextLast)) {
+        if ((this.size() != 0 && this.nextFirst - 1 == this.nextLast)) {
             this.resize(this.items.length * 2);
         }
         this.items[nextLast] = item;
