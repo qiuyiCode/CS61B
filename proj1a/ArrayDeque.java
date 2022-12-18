@@ -70,9 +70,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if (this.items[this.nextFirst + 1] == null)
+        if (this.items[this.nextFirst + 1] == null) {
             return null;
-
+        }
         T t = this.items[this.nextFirst + 1];
         this.items[this.nextFirst + 1] = null;
         this.nextFirst = this.nextFirst + 1;
@@ -81,8 +81,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if (this.items[this.nextLast - 1] == null)
+        if (this.items[this.nextLast - 1] == null){
             return null;
+        }
 
         T t = this.items[this.nextLast - 1];
         this.items[this.nextLast - 1] = null;
@@ -91,8 +92,14 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if (index >= this.size)
+        if(isEmpty() || index > this.items.length){
             return null;
-        return this.items[index - 1];
+        }
+        int p = this.nextFirst + 1;
+        while(index != 0){
+            p = p + 1;
+            index = index - 1;
+        }
+        return this.items[p];
     }
 }

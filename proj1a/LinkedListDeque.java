@@ -1,13 +1,8 @@
-/*
-* 1. add and remove operations must not involve any looping or recursion.operation must take constant time.
-* 2. get must use iteration,not recursion
-* 3. size must take constant time.
-*/
 public class LinkedListDeque<T> {
     private class DDLNode {
-        public T item;
-        public DDLNode prev; // previous
-        public DDLNode next;
+        private T item;
+        private DDLNode prev; // previous
+        private DDLNode next;
 
         public DDLNode(T i, DDLNode p, DDLNode n) {
             this.item = i;
@@ -16,10 +11,12 @@ public class LinkedListDeque<T> {
         }
 
         public T get(int index) {
-            if (index == 0)
+            if (index == 0) {
                 return this.item;
-            else if (this.next == sentinel)
+            }
+            else if (this.next == sentinel) {
                 return null;
+            }
             return this.next.get(--index);
         }
     }
@@ -46,8 +43,7 @@ public class LinkedListDeque<T> {
             p = p.next;
         }
     }
-
-     */
+    */
 
     public void addFirst(T item) {
         this.sentinel.next = new DDLNode(item, this.sentinel, this.sentinel.next);
@@ -73,8 +69,9 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque() {
-        if (isEmpty())
+        if (isEmpty()) {
             return;
+        }
 
         DDLNode p = this.sentinel.next;
         while (p != sentinel) {
@@ -85,8 +82,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if (this.size == 0)
+        if (this.size == 0) {
             return null;
+        }
 
         T t = this.sentinel.next.item;
         this.sentinel.next.next.prev = this.sentinel;
@@ -96,8 +94,9 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (isEmpty())
+        if (isEmpty()) {
             return null;
+        }
         T t = this.sentinel.prev.item;
         this.sentinel.prev.prev.next = this.sentinel.prev.next;
         this.sentinel.prev = this.sentinel.prev.prev;
@@ -106,8 +105,9 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (this.sentinel.next == this.sentinel)
+        if (this.sentinel.next == this.sentinel) {
             return null;
+        }
         int i = 0;
         DDLNode p = this.sentinel.next;
         while (p != null && i != index) {
@@ -124,36 +124,3 @@ public class LinkedListDeque<T> {
         return this.sentinel.next.get(index);
     }
 }
-/*
- * public static void main(String[] args) {
- * LinkedListDeque<Integer> deque = new LinkedListDeque<>();
- * System.out.println("是否为空:" + deque.isEmpty());
- * deque.addFirst(20);
- * deque.addFirst(15);
- * deque.addFirst(10);
- * deque.addLast(30);
- * System.out.println(deque.removeLast());
- * System.out.println(deque.removeFirst());
- * System.out.print("遍历一次:");
- * deque.printDeque();
- * System.out.println("根据index获取元素:" + deque.getRecusive(0));
- * System.out.println("是否为空:" + deque.isEmpty());
- * System.out.println("size:" + deque.size());
- * 
- * System.out.println("--------------带参构造函数的测试---------------");
- * 
- * LinkedListDeque<Integer> CopyDeque = new LinkedListDeque<>(deque);
- * System.out.println("是否为空:" + CopyDeque.isEmpty());
- * CopyDeque.addFirst(3);
- * CopyDeque.addLast(5);
- * CopyDeque.addLast(7);
- * System.out.print("遍历一次:");
- * CopyDeque.printDeque();
- * System.out.println("根据index获取元素index = 0:" + CopyDeque.getRecusive(0));
- * System.out.println("根据index获取元素index = 2:" + CopyDeque.getRecusive(2));
- * System.out.println("是否为空:" + CopyDeque.isEmpty());
- * System.out.println("size:" + CopyDeque.size());
- * }
- * }
- * 
- */
