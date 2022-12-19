@@ -1,3 +1,5 @@
+package q.tolearn.cs61b.proj1a;
+
 public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
@@ -12,46 +14,37 @@ public class ArrayDeque<T> {
     }
 
     /*
-    public ArrayDeque(ArrayDeque other) {
-        this.items = (T[]) new Object[other.items.length];
-        this.nextFirst = other.nextFirst;
-        this.nextLast = other.nextLast;
-        System.arraycopy(other.items, 0, this.items, 0, other.items.length);
-        this.size = other.size();
-    }
-    */
+     * public ArrayDeque(ArrayDeque other) {
+     * this.items = (T[]) new Object[other.items.length];
+     * this.nextFirst = other.nextFirst;
+     * this.nextLast = other.nextLast;
+     * System.arraycopy(other.items, 0, this.items, 0, other.items.length);
+     * this.size = other.size();
+     * }
+     */
 
     private void resize(int capacity) {
-        T[] tmp = (T[])new Object[capacity * 2];
+        T[] tmp = (T[]) new Object[capacity];
         System.arraycopy(this.items, 0, tmp, 0, this.items.length);
         this.items = tmp;
     }
 
     public void addFirst(T item) {
-        if ((this.size() != 0 && this.nextFirst + 1 == this.nextLast)) {
+        if ((this.size() != 0 && (nextFirst + 1 + items.length) % items.length == nextLast)) {
             this.resize(this.items.length * 2);
         }
 
-        this.items[nextFirst] = item;
-        this.nextFirst = this.nextFirst - 1;
-
-        if (this.nextFirst < 0) {
-            this.nextFirst = this.items.length - 1;
-        }
+        this.items[this.nextFirst] = item;
+        this.nextFirst = (this.nextFirst - 1 + this.items.length) % this.items.length;
         this.size++;
     }
 
     public void addLast(T item) {
-        if ((this.size() != 0 && this.nextFirst - 1 == this.nextLast)) {
+        if ((this.size() != 0 && (nextFirst - 1 + items.length) % items.length == nextLast)) {
             this.resize(this.items.length * 2);
         }
-        this.items[nextLast] = item;
-        this.nextLast = this.nextLast + 1;
-
-        if (this.nextLast == this.items.length) {
-            this.nextLast = (this.nextLast + 1) % this.items.length;
-        }
-
+        this.items[this.nextLast] = item;
+        this.nextLast = (this.nextLast + 1 + this.items.length) % this.items.length;
         this.size++;
     }
 
@@ -64,42 +57,89 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = this.nextFirst; i < this.size; i++) {
-            System.out.print(items[i] + " ");
+        for (int i = 0; i < this.size; i++) {
+            System.out.print(this.get(i) + " ");
         }
     }
 
     public T removeFirst() {
-        if (this.items[this.nextFirst + 1] == null) {
+        int position = (this.nextFirst + 1 + this.items.length) % this.items.length;
+        if (this.items[position] == null) {
             return null;
         }
-        T t = this.items[this.nextFirst + 1];
-        this.items[this.nextFirst + 1] = null;
-        this.nextFirst = this.nextFirst + 1;
+        T t = this.items[position];
+        this.items[position] = null;
+        this.nextFirst = position;
         this.size--;
         return t;
     }
 
     public T removeLast() {
-        if (this.items[this.nextLast - 1] == null){
+        int position = (this.nextLast - 1 + this.items.length) % this.items.length;
+        if (this.items[position] == null) {
             return null;
         }
-
-        T t = this.items[this.nextLast - 1];
-        this.items[this.nextLast - 1] = null;
+        T t = this.items[position];
+        this.items[position] = null;
+        this.nextLast = position;
         this.size--;
         return t;
     }
 
     public T get(int index) {
-        if(isEmpty() || index > this.items.length){
+        if (isEmpty() || index > this.items.length) {
             return null;
         }
-        int p = this.nextFirst + 1;
-        while(index != 0){
-            p = p + 1;
+
+        int pos = this.nextFirst + 1;
+        while (index != 0) {
+            pos = pos + 1;
             index = index - 1;
         }
-        return this.items[p];
+        pos = (pos + this.items.length) % this.items.length;
+        return this.items[pos];
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> Q = new ArrayDeque<>();
+        System.out.println("Deque为空吗:" + Q.isEmpty());
+        Q.addFirst(1);
+        Q.addFirst(2);
+        Q.addLast(3);
+        Q.addLast(4);
+        Q.addLast(5);
+        Q.addFirst(6);
+        System.out.println("现在的序列为:6 2 1 3 4 5");
+        System.out.println("获取位置(0):" + Q.get(0));
+        System.out.println("删除第一个元素");
+        Q.removeFirst();
+        System.out.println("获取位置(0):" + Q.get(0));
+        System.out.println("删除最后一个元素");
+        Q.removeLast();
+        System.out.println("获取位置(4):" + Q.get(3));
+        System.out.println("打印Deque:");
+        Q.printDeque();
+        System.out.println();
+        System.out.println("添加首元素:7");
+        Q.addFirst(7);
+        System.out.println("添加尾元素:8");
+        Q.addLast(8);
+        System.out.println("获取位置(6):" + Q.get(5));
+        System.out.println("打印Queue:");
+        Q.printDeque();
+        System.out.println();
+        System.out.println("添加首元素:9");
+        Q.addFirst(9);
+        System.out.println("打印Queue:");
+        Q.printDeque();
+        System.out.println();
+        System.out.println("添加尾元素:0");
+        Q.addLast(0);
+        System.out.println("打印Queue:");
+        Q.printDeque();
+        System.out.println("resize测试:添加首元素10");
+        Q.addFirst(10);
+        System.out.println("打印Queue:");
+        Q.printDeque();
     }
 }
