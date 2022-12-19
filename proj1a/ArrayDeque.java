@@ -11,7 +11,7 @@ public class ArrayDeque<T> {
         this.size = 0;
     }
 
-    private void reSize(int capacity) {
+    private void resize(int capacity) {
         T[] tmp = (T[]) new Object[capacity];
         for (int i = 0; i < this.size; i++) {
             tmp[i] = this.get(i);
@@ -23,7 +23,7 @@ public class ArrayDeque<T> {
 
     public void addFirst(T item) {
         if ((this.size() != 0 && (nextFirst + 1 + items.length) % items.length == nextLast)) {
-            this.reSize(this.items.length * 2);
+            this.resize(this.items.length * 2);
         }
 
         this.items[this.nextFirst] = item;
@@ -33,7 +33,7 @@ public class ArrayDeque<T> {
 
     public void addLast(T item) {
         if (this.size() != 0 && this.size == this.items.length) {
-            this.reSize(this.items.length * 2);
+            this.resize(this.items.length * 2);
         }
         this.items[this.nextLast] = item;
         this.nextLast = (this.nextLast + 1 + this.items.length) % this.items.length;
@@ -56,7 +56,7 @@ public class ArrayDeque<T> {
 
     public T removeFirst() {
         if (this.size > 8 && (float)(this.size / this.items.length) <= 0.25) {
-            this.reSize(this.items.length / 2);
+            this.resize(this.items.length / 2);
         }
         int position = (this.nextFirst + 1 + this.items.length) % this.items.length;
         if (this.items[position] == null) {
@@ -70,8 +70,8 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if (this.size > 8 && ((double)this.size / this.items.length) <= 0.25) {
-            this.reSize(this.items.length / 2);
+        if (this.size > 8 && ((double) this.size / this.items.length) <= 0.25) {
+            this.resize(this.items.length / 2);
         }
         int position = (this.nextLast - 1 + this.items.length) % this.items.length;
         if (this.items[position] == null) {
@@ -97,7 +97,7 @@ public class ArrayDeque<T> {
         pos = (pos + this.items.length) % this.items.length;
         return this.items[pos];
     }
-    /*
+/*
     public static void main(String[] args) {
         ArrayDeque<Integer> Q = new ArrayDeque<>();
         System.out.println("Deque为空吗:" + Q.isEmpty());
@@ -156,22 +156,12 @@ public class ArrayDeque<T> {
         Q.printDeque();
         System.out.println();
         System.out.println("队列大小:" + Q.size());
-        System.out.println("队列是否为空:" + Q.isEmpty());
         Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
-        Q.removeLast();
+        Q.removeFirst();
         Q.printDeque();
-        System.out.println();
+        System.out.println("队列是否为空:" + Q.isEmpty());
         System.out.println(Q.size());
     }
-     */
+ */
 }
 
