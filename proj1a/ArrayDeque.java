@@ -1,3 +1,5 @@
+package q.tolearn.cs61b.proj1a;
+
 public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
@@ -55,6 +57,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (this.size >= 16 && (float)(this.size / this.items.length) <= 0.25) {
+            this.resize(8);
+        }
         int position = (this.nextFirst + 1 + this.items.length) % this.items.length;
         if (this.items[position] == null) {
             return null;
@@ -67,6 +72,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (this.size >= 16 && (float)(this.size / this.items.length) <= 0.25) {
+            this.resize(8);
+        }
         int position = (this.nextLast - 1 + this.items.length) % this.items.length;
         if (this.items[position] == null) {
             return null;

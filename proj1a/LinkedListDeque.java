@@ -1,3 +1,5 @@
+package q.tolearn.cs61b.proj1a;
+
 public class LinkedListDeque<T> {
     private class DDLNode {
         private T item;
@@ -13,8 +15,7 @@ public class LinkedListDeque<T> {
         public T get(int index) {
             if (index == 0) {
                 return this.item;
-            }
-            else if (this.next == sentinel) {
+            } else if (this.next == sentinel) {
                 return null;
             }
             return this.next.get(--index);
@@ -115,8 +116,9 @@ public class LinkedListDeque<T> {
             i++;
         }
 
-        if (p == null)
+        if (p == null) {
             return null;
+        }
         return p.item;
     }
 
