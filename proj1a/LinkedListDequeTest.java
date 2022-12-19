@@ -1,4 +1,3 @@
-package q.tolearn.cs61b.proj1a;
 public class LinkedListDequeTest {
 	/* Utility method for printing out empty checks. */
 	public static boolean checkEmpty(boolean expected, boolean actual) {

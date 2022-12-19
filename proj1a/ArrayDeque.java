@@ -1,5 +1,3 @@
-package q.tolearn.cs61b.proj1a;
-
 public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
