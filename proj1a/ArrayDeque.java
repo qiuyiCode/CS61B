@@ -55,6 +55,11 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        /*
+        if (this.size > 8 && (float)(this.size / this.items.length) <= 0.25) {
+            this.resize(this.items.length / 2);
+        }
+        */
         int position = (this.nextFirst + 1 + this.items.length) % this.items.length;
         if (this.items[position] == null) {
             return null;
@@ -67,6 +72,11 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        /*
+        if (this.size > 8 && (float)(this.size / this.items.length) <= 0.25) {
+            this.resize(16);
+        }
+        */
         int position = (this.nextLast - 1 + this.items.length) % this.items.length;
         if (this.items[position] == null) {
             return null;
@@ -91,8 +101,7 @@ public class ArrayDeque<T> {
         pos = (pos + this.items.length) % this.items.length;
         return this.items[pos];
     }
-}
-    /*
+/*
     public static void main(String[] args) {
         ArrayDeque<Integer> Q = new ArrayDeque<>();
         System.out.println("Deque为空吗:" + Q.isEmpty());
@@ -153,5 +162,7 @@ public class ArrayDeque<T> {
         System.out.println("队列大小:" + Q.size());
         System.out.println("队列是否为空:" + Q.isEmpty());
     }
+
+ */
 }
-*/
+
