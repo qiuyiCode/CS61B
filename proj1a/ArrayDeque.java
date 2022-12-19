@@ -1,5 +1,3 @@
-package q.tolearn.cs61b.proj1a;
-
 public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
@@ -12,16 +10,6 @@ public class ArrayDeque<T> {
         this.nextLast = 5;
         this.size = 0;
     }
-
-    /*
-     * public ArrayDeque(ArrayDeque other) {
-     * this.items = (T[]) new Object[other.items.length];
-     * this.nextFirst = other.nextFirst;
-     * this.nextLast = other.nextLast;
-     * System.arraycopy(other.items, 0, this.items, 0, other.items.length);
-     * this.size = other.size();
-     * }
-     */
 
     private void resize(int capacity) {
         T[] tmp = (T[]) new Object[capacity];
@@ -99,7 +87,8 @@ public class ArrayDeque<T> {
         pos = (pos + this.items.length) % this.items.length;
         return this.items[pos];
     }
-
+}
+/*
     public static void main(String[] args) {
         ArrayDeque<Integer> Q = new ArrayDeque<>();
         System.out.println("Deque为空吗:" + Q.isEmpty());
@@ -143,3 +132,4 @@ public class ArrayDeque<T> {
         Q.printDeque();
     }
 }
+*/
