@@ -1,5 +1,3 @@
-package q.tolearn.cs61b.proj1a;
-
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
 	

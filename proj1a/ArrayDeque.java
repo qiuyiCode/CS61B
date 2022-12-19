@@ -13,8 +13,12 @@ public class ArrayDeque<T> {
 
     private void resize(int capacity) {
         T[] tmp = (T[]) new Object[capacity];
-        System.arraycopy(this.items, 0, tmp, 0, this.items.length);
+        for (int i = 0; i < this.size; i++) {
+            tmp[i] = this.get(i);
+        }
         this.items = tmp;
+        this.nextFirst = this.items.length - 1;
+        this.nextLast = this.size;
     }
 
     public void addFirst(T item) {
@@ -28,7 +32,7 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T item) {
-        if ((this.size() != 0 && (nextFirst - 1 + items.length) % items.length == nextLast)) {
+        if (this.size() != 0 && this.size == this.items.length) {
             this.resize(this.items.length * 2);
         }
         this.items[this.nextLast] = item;
@@ -88,7 +92,7 @@ public class ArrayDeque<T> {
         return this.items[pos];
     }
 }
-/*
+    /*
     public static void main(String[] args) {
         ArrayDeque<Integer> Q = new ArrayDeque<>();
         System.out.println("Deque为空吗:" + Q.isEmpty());
@@ -124,12 +128,30 @@ public class ArrayDeque<T> {
         System.out.println();
         System.out.println("添加尾元素:0");
         Q.addLast(0);
+        System.out.println("获取位置(3):" + Q.get(3));
         System.out.println("打印Queue:");
         Q.printDeque();
+        System.out.println();
         System.out.println("resize测试:添加首元素10");
         Q.addFirst(10);
         System.out.println("打印Queue:");
+        System.out.println("添加尾元素11");
+        Q.addLast(11);
+        System.out.println("添加首元素12");
+        Q.addFirst(12);
         Q.printDeque();
+        System.out.println();
+        System.out.println("resize测试:");
+        Q.addFirst(13);
+        Q.addFirst(14);
+        Q.addFirst(15);
+        Q.addFirst(16);
+        Q.addFirst(17);
+        Q.addLast(18);
+        Q.printDeque();
+        System.out.println();
+        System.out.println("队列大小:" + Q.size());
+        System.out.println("队列是否为空:" + Q.isEmpty());
     }
 }
 */
