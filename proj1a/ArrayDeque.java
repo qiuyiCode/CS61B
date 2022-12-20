@@ -25,17 +25,16 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if (this.size() != 0 && this.size == this.length) {
+        if (this.size == this.length) {
             this.resize(this.length * 2);
         }
-
         this.items[this.nextFirst] = item;
         this.nextFirst = (this.nextFirst - 1 + this.length) % this.length;
         this.size++;
     }
 
     public void addLast(T item) {
-        if (this.size() != 0 && this.size == this.length) {
+        if (this.size == this.length) {
             this.resize(this.length * 2);
         }
         this.items[this.nextLast] = item;
