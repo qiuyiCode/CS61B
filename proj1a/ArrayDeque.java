@@ -1,7 +1,10 @@
+package q.tolearn.cs61b.proj1a;
+
 public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
+    private int length;
     private int size;
 
     public ArrayDeque() {
@@ -9,6 +12,7 @@ public class ArrayDeque<T> {
         this.nextFirst = 4;
         this.nextLast = 5;
         this.size = 0;
+        this.length = this.items.length;
     }
 
     private void resize(int capacity) {
@@ -17,26 +21,27 @@ public class ArrayDeque<T> {
             tmp[i] = this.get(i);
         }
         this.items = tmp;
+        this.length = capacity;
         this.nextFirst = this.items.length - 1;
         this.nextLast = this.size;
     }
 
     public void addFirst(T item) {
-        if ((this.size() != 0 && (nextFirst + 1 + items.length) % items.length == nextLast)) {
-            this.resize(this.items.length * 2);
+        if (this.size() != 0 && this.size == this.length) {
+            this.resize(this.length * 2);
         }
 
         this.items[this.nextFirst] = item;
-        this.nextFirst = (this.nextFirst - 1 + this.items.length) % this.items.length;
+        this.nextFirst = (this.nextFirst - 1 + this.length) % this.length;
         this.size++;
     }
 
     public void addLast(T item) {
-        if (this.size() != 0 && this.size == this.items.length) {
-            this.resize(this.items.length * 2);
+        if (this.size() != 0 && this.size == this.length) {
+            this.resize(this.length * 2);
         }
         this.items[this.nextLast] = item;
-        this.nextLast = (this.nextLast + 1 + this.items.length) % this.items.length;
+        this.nextLast = (this.nextLast + 1 + this.length) % this.length;
         this.size++;
     }
 
@@ -55,10 +60,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if (this.size > 8 && ((double) this.size / this.items.length) <= 0.25) {
-            this.resize(this.items.length / 2);
+        if (this.size > 8 && ((double) this.size / this.length) <= 0.25) {
+            this.resize(this.length / 2);
         }
-        int position = (this.nextFirst + 1 + this.items.length) % this.items.length;
+        int position = (this.nextFirst + 1 + this.length) % this.length;
         if (this.items[position] == null) {
             return null;
         }
@@ -70,10 +75,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if (this.size > 8 && ((double) this.size / this.items.length) <= 0.25) {
-            this.resize(this.items.length / 2);
+        if (this.size > 8 && ((double) this.size / this.length) <= 0.25) {
+            this.resize(this.length / 2);
         }
-        int position = (this.nextLast - 1 + this.items.length) % this.items.length;
+        int position = (this.nextLast - 1 + this.length) % this.length;
         if (this.items[position] == null) {
             return null;
         }
@@ -85,7 +90,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if (isEmpty() || index > this.items.length) {
+        if (isEmpty() || index > this.length) {
             return null;
         }
 
@@ -94,11 +99,11 @@ public class ArrayDeque<T> {
             pos = pos + 1;
             index = index - 1;
         }
-        pos = (pos + this.items.length) % this.items.length;
+        pos = (pos + this.length) % this.length;
         return this.items[pos];
     }
-}
-    /*
+
+
     public static void main(String[] args) {
         ArrayDeque<Integer> Q = new ArrayDeque<>();
         System.out.println("Deque为空吗:" + Q.isEmpty());
@@ -165,14 +170,17 @@ public class ArrayDeque<T> {
         Q.removeFirst();
         Q.removeFirst();
         Q.removeFirst();
+        System.out.println("队列大小:" + Q.size());
         Q.removeFirst();
         Q.removeFirst();
         Q.removeFirst();
         Q.removeFirst();
         Q.removeFirst();
+        System.out.println("队列大小:" + Q.size());
         Q.addLast(101);
-        System.out.println(Q.size);
+        Q.addFirst(102);
         Q.printDeque();
+        System.out.println();
+        System.out.println("队列大小:" + Q.size);
     }
-     */
-
+}
