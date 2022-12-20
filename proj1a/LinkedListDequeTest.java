@@ -1,5 +1,3 @@
-package q.tolearn.cs61b.proj1a;
-
 public class LinkedListDequeTest {
 	public static boolean checkEmpty(boolean expected, boolean actual) {
 		if (expected != actual) {
