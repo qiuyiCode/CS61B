@@ -15,8 +15,10 @@ public class ArrayDeque<T> {
 
     private void resize(int capacity) {
         T[] tmp = (T[]) new Object[capacity];
-        for (int i = 0; i < this.size; i++) {
-            tmp[i] = this.get(i);
+        int p = this.nextFirst + 1;
+        for (int i = 0; i < this.size; i++,p++) {
+            p = (p + this.length) % this.length;
+            tmp[i] = this.items[p];
         }
         this.items = tmp;
         this.length = capacity;
@@ -99,7 +101,6 @@ public class ArrayDeque<T> {
         pos = (pos + this.length) % this.length;
         return this.items[pos];
     }
-    /*
     public static void main(String[] args) {
         ArrayDeque<Integer> Q = new ArrayDeque<>();
         System.out.println("Deque为空吗:" + Q.isEmpty());
@@ -179,6 +180,4 @@ public class ArrayDeque<T> {
         System.out.println();
         System.out.println("队列大小:" + Q.size);
     }
-
-     */
 }
