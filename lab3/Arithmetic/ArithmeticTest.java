@@ -1,4 +1,6 @@
 import static org.junit.Assert.*;
+import static org.testng.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class ArithmeticTest {
@@ -29,7 +31,7 @@ public class ArithmeticTest {
     }
 
     /* Run the unit tests in this file. */
-    public static void main(String... args) {        
-        jh61b.junit.TestRunner.runTests("all", ArithmeticTest.class);
+    public static void main(String... args) {
+        jh61b.junit.TestRunner.runTests("all",ArithmeticTest.class);
     }
 }
