@@ -11,20 +11,19 @@ public class TestOffByOne {
     // and OffByOne class.
     @Test
     public void testEqualChars() {
-        OffByOne obo = new OffByOne();
-        assertTrue(obo.equalChars('a', 'b'));
-        assertTrue(obo.equalChars('r', 'q'));
-        assertTrue(obo.equalChars('&', '%'));
-        assertTrue(obo.equalChars('%', '&'));
-        assertFalse(obo.equalChars('a', 'e'));
-        assertFalse(obo.equalChars('z', 'a'));
-        assertFalse(obo.equalChars('a', 'a'));
-        assertFalse(obo.equalChars('A', 'a'));
-        assertFalse(obo.equalChars('c', 'C'));
-        assertFalse(obo.equalChars('$', '.'));
-        assertFalse(obo.equalChars('1', '5'));
-        assertFalse((obo.equalChars('c', '6')));
-        assertTrue(obo.equalChars('2', '3'));
-        assertTrue(obo.equalChars('3', '2'));
+        assertTrue(offByOne.equalChars('a', 'b'));
+        assertTrue(offByOne.equalChars('r', 'q'));
+        assertTrue(offByOne.equalChars('&', '%'));
+        assertTrue(offByOne.equalChars('%', '&'));
+        assertFalse(offByOne.equalChars('a', 'e'));
+        assertFalse(offByOne.equalChars('z', 'a'));
+        assertFalse(offByOne.equalChars('a', 'a'));
+        assertFalse(offByOne.equalChars('A', 'a'));
+        assertFalse(offByOne.equalChars('c', 'C'));
+        assertFalse(offByOne.equalChars('$', '.'));
+        assertFalse(offByOne.equalChars('1', '5'));
+        assertFalse((offByOne.equalChars('c', '6')));
+        assertTrue(offByOne.equalChars('2', '3'));
+        assertTrue(offByOne.equalChars('3', '2'));
     }
 }
