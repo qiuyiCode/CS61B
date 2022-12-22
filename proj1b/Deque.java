@@ -6,9 +6,8 @@ public interface Deque<T> {
     public default boolean isEmpty() {
         if (size() == 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public int size();
