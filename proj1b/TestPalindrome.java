@@ -17,19 +17,19 @@ public class TestPalindrome {
     }
 
     @Test
-    public void testPalindrome(){
-      assertTrue(palindrome.isPalindrome("aaaaabccccccccccbaaaaa"));
-      assertTrue(palindrome.isPalindrome("a"));
-      assertFalse(palindrome.isPalindrome("bbaaccccabbb"));
-      assertTrue(palindrome.isPalindrome(""));
+    public void testPalindrome() {
+        assertTrue(palindrome.isPalindrome("aaaaabccccccccccbaaaaa"));
+        assertTrue(palindrome.isPalindrome("a"));
+        assertFalse(palindrome.isPalindrome("bbaaccccabbb"));
+        assertTrue(palindrome.isPalindrome(""));
     }
 
     @Test
-    public void testEqualsOnePalindrome(){
-      OffByOne cc = new OffByOne();
-      assertTrue(palindrome.isPalindrome(""));
-      assertTrue(palindrome.isPalindrome("a"));
-      assertTrue(palindrome.isPalindrome("flake", cc));
-      assertTrue(palindrome.isPalindrome("ekalf", cc));
+    public void testEqualsOnePalindrome() {
+        OffByOne cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome(""));
+        assertTrue(palindrome.isPalindrome("a"));
+        assertTrue(palindrome.isPalindrome("flake", cc));
+        assertTrue(palindrome.isPalindrome("ekalf", cc));
     }
 }

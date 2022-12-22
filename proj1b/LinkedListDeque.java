@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T> {
     private class DDLNode {
         private T item;
         private DDLNode prev; // previous
@@ -30,20 +30,20 @@ public class LinkedListDeque<T> implements Deque<T>{
         this.size = 0;
     }
     /*
-    public LinkedListDeque(LinkedListDeque other) {
-        this.sentinel = new DDLNode(null, null, null);
-        this.sentinel.next = sentinel;
-        this.sentinel.prev = this.sentinel;
-        this.size = 0;
+     * public LinkedListDeque(LinkedListDeque other) {
+     * this.sentinel = new DDLNode(null, null, null);
+     * this.sentinel.next = sentinel;
+     * this.sentinel.prev = this.sentinel;
+     * this.size = 0;
+     * 
+     * DDLNode p = other.sentinel.next;
+     * while (p != other.sentinel) {
+     * this.addLast(p.item);
+     * p = p.next;
+     * }
+     * }
+     */
 
-        DDLNode p = other.sentinel.next;
-        while (p != other.sentinel) {
-            this.addLast(p.item);
-            p = p.next;
-        }
-    }
-    */
-    
     @Override
     public void addFirst(T item) {
         this.sentinel.next = new DDLNode(item, this.sentinel, this.sentinel.next);
