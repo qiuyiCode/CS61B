@@ -103,7 +103,7 @@ public class ArrayDeque<T> {
         pos = (pos + this.length) % this.length;
         return this.items[pos];
     }
-    /*
+
     public static void main(String[] args) {
         ArrayDeque<Integer> Q = new ArrayDeque<>();
         System.out.println("Deque为空吗:" + Q.isEmpty());
@@ -183,6 +183,5 @@ public class ArrayDeque<T> {
         System.out.println();
         System.out.println("队列大小:" + Q.size);
     }
-    */
 
 }
