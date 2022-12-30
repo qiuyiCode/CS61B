@@ -23,8 +23,6 @@ public class TestArrayRingBuffer {
         item = arb.dequeue();
         assertEquals(item,3);
         assertTrue(arb.isEmpty());
-
-
         arb.enqueue(1);
         arb.enqueue(2);
         arb.enqueue(3);
@@ -33,8 +31,6 @@ public class TestArrayRingBuffer {
         for (Integer n : arb) {
             System.out.println(n);
         }
-
-
     }
 
     /** Calls tests for ArrayRingBuffer. */
