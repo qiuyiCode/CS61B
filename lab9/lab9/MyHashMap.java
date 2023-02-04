@@ -119,7 +119,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * UnsupportedOperationException. */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        if(key == null) throw new IllegalArgumentException("argument to remove() is null.");
+
+        int pos = hash(key);
+        if(buckets[pos].containsKey(key)){
+            return buckets[pos].remove(key);
+        }
+        return null;
     }
 
     /* Removes the entry for the specified key only if it is currently mapped to
@@ -127,11 +133,17 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * throw an UnsupportedOperationException.*/
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+       if(key == null) throw new IllegalArgumentException("argument to remove() is null.");
+
+       int pos = hash(key);
+       if(buckets[pos].containsKey(key) && buckets[pos].get(key) == value){
+           return buckets[pos].remove(key);
+       }
+       return null;
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return keySet().iterator();
     }
 }
