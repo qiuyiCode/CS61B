@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TestComplexOomage {
@@ -36,9 +37,14 @@ public class TestComplexOomage {
     @Test
     public void testWithDeadlyParams() {
         List<Oomage> deadlyList = new ArrayList<>();
-
-        // Your code here.
-
+        List<Integer> l = new LinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 255; j++) {
+                l.add(255);
+            }
+            ComplexOomage c = new ComplexOomage(l);
+            deadlyList.add(c);
+        }
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
     }
 
