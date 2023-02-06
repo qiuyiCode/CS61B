@@ -22,17 +22,13 @@ public class SimpleOomage implements Oomage {
         return (O.red == this.red && O.blue == this.blue && O.green == this.green);
     }
 
-    private int Helper(int i,int j,int k){
-        int p = 163,q = 293,r = 223,m = 139;
-        return (p * i + q * j + r * k) % m;
-    }
 
     @Override
     public int hashCode() {
         if (!USE_PERFECT_HASH) {
             return red + green + blue;
         } else {
-            int hash = Helper(this.red,this.blue,this.green);
+            int hash = (red / 5* 7 + blue / 5 * 11) ^ (green / 5 * 13);
             return hash;
         }
     }
