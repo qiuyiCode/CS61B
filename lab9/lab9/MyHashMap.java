@@ -123,6 +123,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
         int pos = hash(key);
         if(buckets[pos].containsKey(key)){
+            size--;
             return buckets[pos].remove(key);
         }
         return null;
@@ -137,6 +138,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
        int pos = hash(key);
        if(buckets[pos].containsKey(key) && buckets[pos].get(key) == value){
+           size--;
            return buckets[pos].remove(key);
        }
        return null;
