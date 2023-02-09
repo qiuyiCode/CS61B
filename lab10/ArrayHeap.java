@@ -103,6 +103,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void swim(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
+
+        if(index == 1) return;
+
         while(index > 1 && min(index / 2,index) == index){
             swap(index / 2,index);
             index = index / 2;
@@ -120,7 +123,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             int l = leftIndex(index);
             int r,pos;
 
-            if(rightIndex(index) <= size){
+            if(l < size){
                 r = rightIndex(index);
                 pos = min(l,r);
             }else{
@@ -155,7 +158,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
-        return contents[1].myItem;
+        return contents[1].item();
     }
 
     /**
@@ -174,10 +177,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         T t = contents[1].myItem;
-        swap(1,size);
-        contents[size] = null;
-        size--;
+        swap(1,size--);
         sink(1);
+        contents[size+1] = null;
         return t;
     }
 
@@ -201,13 +203,16 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public void changePriority(T item, double priority) {
         if(item == null) return;
-        for (int i = 1; i <= size; i++) {
+        int i;
+        for (i = 1; i <= size; i++) {
             if(contents[i].myItem.equals(item)){
-                contents[i].myPriority = priority;
-                swim(i);
-                sink(i);
+                break;
             }
         }
+        if(i == size + 1) throw new IllegalArgumentException("no such item in the heap.");
+        contents[i].myPriority = priority;
+        swim(i);
+        sink(i);
     }
 
     /**
