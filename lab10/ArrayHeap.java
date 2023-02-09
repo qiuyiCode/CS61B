@@ -41,6 +41,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node that is the parent of the node at i.
      */
     private static int parentIndex(int i) {
+        if(i == 1) throw new IllegalArgumentException("root node has no parent.");
         return i / 2;
     }
 
@@ -103,9 +104,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void swim(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-        while(index > 1 && min(index / 2,index) == index){
-            swap(index / 2,index);
-            index = index / 2;
+
+        while(index > 1 && min(parentIndex(index),index) == index){
+            swap(parentIndex(index),index);
+            index = parentIndex(index);
         }
     }
 
@@ -117,15 +119,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         while(leftIndex(index) <= size){
-            int l = leftIndex(index);
-            int r,pos;
-
-            if(rightIndex(index) <= size){
-                r = rightIndex(index);
-                pos = min(l,r);
-            }else{
-                pos = l;
-            }
+            int pos = min(leftIndex(index),rightIndex(index));
 
             if(min(pos,index) == index) break;
             swap(pos,index);
