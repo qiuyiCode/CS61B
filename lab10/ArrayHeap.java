@@ -116,11 +116,11 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        while(2 * index <= size){
+        while(leftIndex(index) <= size){
             int l = leftIndex(index);
             int r,pos;
 
-            if(2 * index < size){
+            if(rightIndex(index) <= size){
                 r = rightIndex(index);
                 pos = min(l,r);
             }else{
@@ -145,7 +145,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         Node node = new Node(item,priority);
-        contents[++size] =  node;
+        contents[++size] = node;
         swim(size);
     }
 
