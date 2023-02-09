@@ -1,4 +1,7 @@
 import org.junit.Test;
+
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 
 /**
@@ -105,9 +108,19 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
+        /*
         while(index > 1 && min(parentIndex(index),index) == index){
             swap(parentIndex(index),index);
             index = parentIndex(index);
+        }
+
+         */
+        if (index == 1) {
+            return;
+        }
+        if (min(index, parentIndex(index)) == index) {
+            swap(index, parentIndex(index));
+            swim(parentIndex(index));
         }
     }
 
@@ -115,9 +128,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Bubbles down the node currently at the given index.
      */
     private void sink(int index) {
-        // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
-        validateSinkSwimArg(index);
-
+        /*
         while(leftIndex(index) <= size){
             int pos = min(leftIndex(index),rightIndex(index));
 
@@ -125,6 +136,21 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             swap(pos,index);
             index = pos;
         }
+         */
+        if (!inBounds(index)) {
+            return;
+        }
+
+        // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
+        validateSinkSwimArg(index);
+
+        int minChild = min(leftIndex(index), rightIndex(index));
+        if (min(index, minChild) == minChild) {
+            swap(index, minChild);
+            sink(minChild);
+        }
+        return;
+
     }
 
     /**
@@ -149,6 +175,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
+        if(size == 0) throw new NoSuchElementException("heap is empty.");
         return contents[1].item();
     }
 
