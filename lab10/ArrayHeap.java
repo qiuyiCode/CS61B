@@ -110,9 +110,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         if(index == 1) return;
 
-        if(min(parentIndex(index),index) == index){
+        while(index > 1 && min(parentIndex(index),index) == index){
             swap(parentIndex(index),index);
-            swim(parentIndex(index));
+            index = parentIndex(index);
         }
 
          /*
@@ -135,9 +135,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         int pos = min(leftIndex(index),rightIndex(index));
-        if(min(pos,index) == pos){
+        while(min(pos,index) == pos){
             swap(pos,index);
-            sink(pos);
+            index = pos;
+            pos = min(leftIndex(index),rightIndex(index));
         }
 
         /*
