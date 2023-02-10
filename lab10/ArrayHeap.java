@@ -123,7 +123,6 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             swap(index, parentIndex(index));
             swim(parentIndex(index));
         }
-
          */
     }
 
@@ -133,12 +132,17 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void sink(int index) {
         validateSinkSwimArg(index);
 
-        while(leftIndex(index) <= size){
-            int pos = min(leftIndex(index),rightIndex(index));
+        if(!inBounds(index)) return;
 
-            if(min(pos,index) == index) break;
-            swap(pos,index);
-            index = pos;
+        while(leftIndex(index) <= size){
+            int left = leftIndex(index),min_pos = left;
+            if(left < size && min(left,rightIndex(index)) == rightIndex(index)){
+                min_pos = rightIndex(index);
+            }
+
+            if(min(min_pos,index) == index) break;
+            swap(min_pos,index);
+            index = min_pos;
         }
 
         /*
