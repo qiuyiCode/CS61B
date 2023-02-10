@@ -135,7 +135,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         int pos = min(leftIndex(index),rightIndex(index));
-        while(min(pos,index) == pos){
+        while(index <= size() && min(pos,index) == pos){
             swap(pos,index);
             index = pos;
             pos = min(leftIndex(index),rightIndex(index));
