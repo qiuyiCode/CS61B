@@ -8,6 +8,8 @@ public class Percolation {
     private WeightedQuickUnionUF disjointSet;
     private int openSites;
     private int blocked = -1;
+    private int virtualTop = N;
+    private int virtualBottom = N + 1;
 
     public Percolation(int N){
         if(N <= 0) throw new IllegalArgumentException("N can't smaller than or equals to 0.");
@@ -55,6 +57,12 @@ public class Percolation {
         if(this.sites[row][col] == blocked) {
             int index = xyToIndex(row,col);
             this.sites[row][col] = index;
+            if(row == 0){
+                disjointSet.union(virtualTop,xyToIndex(row,col));
+            }
+            if(row == N-1){
+                disjointSet.union(virtualBottom,xyToIndex(row,col));
+            }
             this.openSites += 1;
             unionNeighbors(row,col,index);
         }
@@ -76,9 +84,7 @@ public class Percolation {
             return false;
         }
 
-        int min = 0,max = N-1;
-        int find_index = disjointSet.find(xyToIndex(row,col));
-        if(find_index >= 0 || find_index <= N-1){
+        if(disjointSet.connected(virtualTop,xyToIndex(row,col))){
             return true;
         }
         return false;
@@ -89,12 +95,7 @@ public class Percolation {
     }
 
     public boolean percolates(){
-        for (int i = 0,j = N-1; i < N; i++) {
-            if(isFull(j,i)){
-                return true;
-            }
-        }
-        return false;
+        return this.disjointSet.connected(virtualTop,virtualBottom);
     }
 
     public static void main(String[] args) {
@@ -106,7 +107,7 @@ public class Percolation {
         percolation.open(0,2);
         percolation.open(1,2);
         percolation.open(4,4);
-        System.out.println("isFull:" + percolation.isFull(0,2));
+        System.out.println("isFull:" + percolation.isFull(2,2));
         System.out.println("percolates:" + percolation.percolates());
     }
 }
