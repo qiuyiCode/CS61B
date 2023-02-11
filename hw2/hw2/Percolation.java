@@ -103,14 +103,14 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        Percolation percolation = new Percolation(5);
+        Percolation percolation = new Percolation(3);
         percolation.open(3, 4);
         percolation.open(2, 4);
         percolation.open(2, 2);
         percolation.open(2, 3);
         percolation.open(0, 2);
         percolation.open(1, 2);
-        percolation.open(4,4);
+        percolation.open(4, 4);
         System.out.println("isFull:" + percolation.isFull(2, 2));
         System.out.println("percolates:" + percolation.percolates());
     }

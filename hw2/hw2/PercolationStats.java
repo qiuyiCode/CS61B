@@ -3,13 +3,11 @@ package hw2;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
-import java.util.Random;
-
 public class PercolationStats {
     private Percolation percolation;
     private int T;
     private int N;
-    private double[] Xt;
+    private double[] xInstance;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
@@ -17,18 +15,18 @@ public class PercolationStats {
         }
         this.T = T;
         this.N = N;
-        Xt = new double[T];
+        xInstance = new double[T];
 
         for (int i = 0; i < T; i++) {
             percolation = pf.make(N);
-            experiment_once(i);
+            calculateOnce(i);
         }
     }
 
-    private void experiment_once(int i) {
-        int seed = StdRandom.uniform(1000000000);
-        StdRandom.setSeed(seed);
+    private void calculateOnce(int i) {
         while (percolation.percolates()) {
+            int seed = StdRandom.uniform(1000000000);
+            StdRandom.setSeed(seed);
             int row = StdRandom.uniform(0, N);
             int col = StdRandom.uniform(0, N);
             if (!percolation.isOpen(row, col)) {
@@ -36,15 +34,15 @@ public class PercolationStats {
             }
         }
         double xt = percolation.numberOfOpenSites() / (N * N);
-        Xt[i] = xt;
+        xInstance[i] = xt;
     }
 
     public double mean() {
-        return StdStats.mean(Xt);
+        return StdStats.mean(xInstance);
     }
 
     public double stddev() {
-        return StdStats.stddev(Xt);
+        return StdStats.stddev(xInstance);
     }
 
     private double confidenceHelper(double theta) {
