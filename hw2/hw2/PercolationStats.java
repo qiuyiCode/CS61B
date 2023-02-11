@@ -26,7 +26,8 @@ public class PercolationStats {
     }
 
     private void experiment_once(int i) {
-        StdRandom.setSeed(692931);
+        int seed = StdRandom.uniform(1000000000);
+        StdRandom.setSeed(seed);
         while (percolation.percolates()) {
             int row = StdRandom.uniform(0, N);
             int col = StdRandom.uniform(0, N);
