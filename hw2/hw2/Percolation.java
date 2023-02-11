@@ -19,7 +19,7 @@ public class Percolation {
         sites = new int[N][N];
         this.N = N;
         this.openSites = 0;
-        disjointSet = new WeightedQuickUnionUF(N * N);
+        disjointSet = new WeightedQuickUnionUF(N * N + 2);
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 this.sites[i][j] = blocked;
@@ -108,7 +108,6 @@ public class Percolation {
         percolation.open(2, 3);
         percolation.open(0, 2);
         percolation.open(1, 2);
-        percolation.open(4, 4);
         System.out.println("isFull:" + percolation.isFull(2, 2));
         System.out.println("percolates:" + percolation.percolates());
     }

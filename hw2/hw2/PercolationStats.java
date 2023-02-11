@@ -39,12 +39,7 @@ public class PercolationStats {
     }
 
     public double mean() {
-        double rlt = 0.0;
-        for (int i = 0; i < T; i++) {
-            rlt += Xt[i];
-        }
-        rlt /= T;
-        return rlt;
+        return StdStats.mean(Xt);
     }
 
     public double stddev() {
@@ -52,7 +47,8 @@ public class PercolationStats {
     }
 
     private double confidenceHelper(double theta) {
-        double process = Math.sqrt(T);
+        double num = T;
+        double process = Math.sqrt(num);
         return 1.96 * theta / process;
     }
 
