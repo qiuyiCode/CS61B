@@ -6,6 +6,7 @@ public class Percolation {
     private boolean[] sites; // N * N grid of sites.
     private int N;
     private WeightedQuickUnionUF disjointSet;
+//    private WeightedQuickUnionUF otherDisjointSet;
     private int openSites;
     private int virtualTop;
     private int virtualBottom;
@@ -18,9 +19,12 @@ public class Percolation {
         sites = new boolean[N * N];
         this.N = N;
         this.virtualTop = N * N;
-        this.virtualBottom = virtualTop + 1;
+        this.virtualBottom = N * N + 1;
         this.openSites = 0;
+        // used to judge percolates().
         disjointSet = new WeightedQuickUnionUF(N * N + 2);
+        // used to judge isFull().
+//        otherDisjointSet = new WeightedQuickUnionUF(N * N + 1);
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 this.sites[xyToIndex(i, j)] = false;
@@ -36,19 +40,23 @@ public class Percolation {
     }
 
     private void unionNeighbors(int row, int col, int index) {
-        if (row != 0 && this.sites[xyToIndex(row - 1, col)] != false) {
+        if (row != 0 && !this.sites[xyToIndex(row - 1, col)]) {
+//            otherDisjointSet.union(xyToIndex(row - 1, col), index);
             disjointSet.union(xyToIndex(row - 1, col), index);
         }
 
-        if (col != 0 && this.sites[xyToIndex(row, col - 1)] != false) {
+        if (col != 0 && !this.sites[xyToIndex(row, col - 1)]) {
+//            otherDisjointSet.union(xyToIndex(row, col - 1), index);
             disjointSet.union(xyToIndex(row, col - 1), index);
         }
 
-        if (row != N - 1 && this.sites[xyToIndex(row + 1, col)] != false) {
+        if (row != N - 1 && !this.sites[xyToIndex(row + 1, col)]) {
+//            otherDisjointSet.union(xyToIndex(row + 1, col), index);
             disjointSet.union(index, xyToIndex(row + 1, col));
         }
 
-        if (col != N - 1 && this.sites[xyToIndex(row, col + 1)] != false) {
+        if (col != N - 1 && !this.sites[xyToIndex(row, col + 1)]) {
+//            otherDisjointSet.union(xyToIndex(row, col + 1), index);
             disjointSet.union(index, xyToIndex(row, col + 1));
         }
     }
@@ -61,6 +69,7 @@ public class Percolation {
             int index = xyToIndex(row, col);
             this.sites[index] = true;
             if (row == 0) {
+//                otherDisjointSet.union(virtualTop, xyToIndex(row, col));
                 disjointSet.union(virtualTop, xyToIndex(row, col));
             }
             if (row == N - 1) {
@@ -98,7 +107,7 @@ public class Percolation {
     }
 
     public boolean percolates() {
-        return this.disjointSet.connected(virtualTop, virtualBottom);
+        return disjointSet.connected(virtualTop, virtualBottom);
     }
 
     public static void main(String[] args) {

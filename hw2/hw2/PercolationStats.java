@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdStats;
 public class PercolationStats {
     private int T;
     private int N;
-    Percolation percolation;
+    private Percolation percolation;
     private double[] xInstance;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -24,13 +24,15 @@ public class PercolationStats {
     }
 
     private void calculateOnce(int i) {
-        while (percolation.percolates() == false) {
+        while (!percolation.percolates()) {
             int row = StdRandom.uniform(0, N);
             int col = StdRandom.uniform(0, N);
             if (!percolation.isOpen(row, col)) {
                 percolation.open(row, col);
             }
         }
+
+        // convert int to double.
         double xt = Double.valueOf(percolation.numberOfOpenSites()) / Double.valueOf(N * N);
         xInstance[i] = xt;
     }
