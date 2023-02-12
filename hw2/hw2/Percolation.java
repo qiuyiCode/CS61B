@@ -103,7 +103,7 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        Percolation percolation = new Percolation(3);
+        Percolation percolation = new Percolation(5);
         percolation.open(3, 4);
         percolation.open(2, 4);
         percolation.open(2, 2);

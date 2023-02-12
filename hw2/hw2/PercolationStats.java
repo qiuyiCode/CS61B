@@ -25,7 +25,7 @@ public class PercolationStats {
 
     private void calculateOnce(int i) {
         while (percolation.percolates() == false) {
-            int seed = StdRandom.uniform(1000000000);
+            int seed = StdRandom.uniform(1000000);
             StdRandom.setSeed(seed);
             int row = StdRandom.uniform(0, N);
             int col = StdRandom.uniform(0, N);
@@ -33,7 +33,7 @@ public class PercolationStats {
                 percolation.open(row, col);
             }
         }
-        double xt = percolation.numberOfOpenSites() / (N * N);
+        double xt = Double.valueOf(percolation.numberOfOpenSites()) / Double.valueOf(N * N);
         xInstance[i] = xt;
     }
 
@@ -46,7 +46,7 @@ public class PercolationStats {
     }
 
     private double confidenceHelper(double theta) {
-        double num = T;
+        double num = Double.valueOf(T);
         double process = Math.sqrt(num);
         return 1.96 * theta / process;
     }
@@ -57,5 +57,11 @@ public class PercolationStats {
 
     public double confidenceHigh() {
         return mean() + confidenceHelper(stddev());
+    }
+
+    public static void main(String[] args) {
+        PercolationFactory factory = new PercolationFactory();
+        PercolationStats p = new PercolationStats(20,10,factory);
+        System.out.println(p.mean());
     }
 }
