@@ -3,7 +3,7 @@ package hw2;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private boolean sites[]; // N * N grid of sites.
+    private boolean[] sites; // N * N grid of sites.
     private int N;
     private WeightedQuickUnionUF disjointSet;
     private int openSites;
@@ -23,7 +23,7 @@ public class Percolation {
         disjointSet = new WeightedQuickUnionUF(N * N + 2);
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                this.sites[xyToIndex(i,j)] = false;
+                this.sites[xyToIndex(i, j)] = false;
             }
         }
     }
@@ -36,19 +36,19 @@ public class Percolation {
     }
 
     private void unionNeighbors(int row, int col, int index) {
-        if (row != 0 && this.sites[xyToIndex(row-1,col)] != false) {
+        if (row != 0 && this.sites[xyToIndex(row - 1, col)] != false) {
             disjointSet.union(xyToIndex(row - 1, col), index);
         }
 
-        if (col != 0 && this.sites[xyToIndex(row,col-1)] != false) {
+        if (col != 0 && this.sites[xyToIndex(row, col - 1)] != false) {
             disjointSet.union(xyToIndex(row, col - 1), index);
         }
 
-        if (row != N - 1 && this.sites[xyToIndex(row+1,col)] != false) {
+        if (row != N - 1 && this.sites[xyToIndex(row + 1, col)] != false) {
             disjointSet.union(index, xyToIndex(row + 1, col));
         }
 
-        if (col != N - 1 && this.sites[xyToIndex(row,col+1)] != false) {
+        if (col != N - 1 && this.sites[xyToIndex(row, col + 1)] != false) {
             disjointSet.union(index, xyToIndex(row, col + 1));
         }
     }
@@ -57,7 +57,7 @@ public class Percolation {
         if (row < 0 || col < 0 || row >= N || col >= N) {
             throw new IndexOutOfBoundsException("row or col must within [0,N-1].");
         }
-        if (this.sites[xyToIndex(row,col)] == false) {
+        if (this.sites[xyToIndex(row, col)] == false) {
             int index = xyToIndex(row, col);
             this.sites[index] = true;
             if (row == 0) {
@@ -75,7 +75,7 @@ public class Percolation {
         if (row < 0 || col < 0 || row >= N || col >= N) {
             throw new IndexOutOfBoundsException("row or col must within [0,N-1].");
         }
-        return this.sites[xyToIndex(row,col)];
+        return this.sites[xyToIndex(row, col)];
     }
 
     public boolean isFull(int row, int col) {
@@ -83,7 +83,7 @@ public class Percolation {
             throw new IndexOutOfBoundsException("row or col must within [0,N-1].");
         }
 
-        if (this.sites[xyToIndex(row,col)] == false) {
+        if (this.sites[xyToIndex(row, col)] == false) {
             return false;
         }
 

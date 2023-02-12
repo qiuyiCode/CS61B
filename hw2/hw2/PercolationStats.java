@@ -4,28 +4,35 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
-    private double[] xInstance;
     private int T;
+    private int N;
+    Percolation percolation;
+    private double[] xInstance;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException("N and T must more than 0.");
         }
-        xInstance = new double[T];
         this.T = T;
+        this.N = N;
+        xInstance = new double[T];
 
         for (int i = 0; i < T; i++) {
-            Percolation percolation = pf.make(N);
-            while (!percolation.percolates()) {
-                int row = StdRandom.uniform(0, N);
-                int col = StdRandom.uniform(0, N);
-                if (!percolation.isOpen(row, col)) {
-                    percolation.open(row, col);
-                }
-            }
-            double xt = Double.valueOf(percolation.numberOfOpenSites()) / Double.valueOf(N * N);
-            xInstance[i] = xt;
+            percolation = pf.make(N);
+            calculateOnce(i);
         }
+    }
+
+    private void calculateOnce(int i) {
+        while (percolation.percolates() == false) {
+            int row = StdRandom.uniform(0, N);
+            int col = StdRandom.uniform(0, N);
+            if (!percolation.isOpen(row, col)) {
+                percolation.open(row, col);
+            }
+        }
+        double xt = Double.valueOf(percolation.numberOfOpenSites()) / Double.valueOf(N * N);
+        xInstance[i] = xt;
     }
 
     public double mean() {
@@ -48,11 +55,5 @@ public class PercolationStats {
 
     public double confidenceHigh() {
         return mean() + confidenceHelper(stddev());
-    }
-
-    public static void main(String[] args) {
-        PercolationFactory factory = new PercolationFactory();
-        PercolationStats p = new PercolationStats(20,30,factory);
-        System.out.println(p.mean());
     }
 }
