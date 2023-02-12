@@ -24,7 +24,7 @@ public class PercolationStats {
     }
 
     private void calculateOnce(int i) {
-        while (!percolation.percolates()) {
+        while (percolation.percolates() == false) {
             int seed = StdRandom.uniform(1000000000);
             StdRandom.setSeed(seed);
             int row = StdRandom.uniform(0, N);
