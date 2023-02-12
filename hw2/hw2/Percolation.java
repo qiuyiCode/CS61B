@@ -75,7 +75,7 @@ public class Percolation {
         if (row < 0 || col < 0 || row >= N || col >= N) {
             throw new IndexOutOfBoundsException("row or col must within [0,N-1].");
         }
-        return this.sites[xyToIndex(row,col)] != false;
+        return this.sites[xyToIndex(row,col)];
     }
 
     public boolean isFull(int row, int col) {

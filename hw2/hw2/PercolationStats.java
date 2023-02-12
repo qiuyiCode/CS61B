@@ -16,9 +16,7 @@ public class PercolationStats {
 
         for (int i = 0; i < T; i++) {
             Percolation percolation = pf.make(N);
-            while (percolation.percolates() == false) {
-                int seed = StdRandom.uniform(1000000);
-                StdRandom.setSeed(seed);
+            while (!percolation.percolates()) {
                 int row = StdRandom.uniform(0, N);
                 int col = StdRandom.uniform(0, N);
                 if (!percolation.isOpen(row, col)) {
@@ -39,7 +37,7 @@ public class PercolationStats {
     }
 
     private double confidenceHelper(double theta) {
-        double num = Double.valueOf(xInstance.length);
+        double num = Double.valueOf(T);
         double process = Math.sqrt(num);
         return 1.96 * theta / process;
     }
@@ -54,7 +52,7 @@ public class PercolationStats {
 
     public static void main(String[] args) {
         PercolationFactory factory = new PercolationFactory();
-        PercolationStats p = new PercolationStats(20,5,factory);
+        PercolationStats p = new PercolationStats(20,30,factory);
         System.out.println(p.mean());
     }
 }
