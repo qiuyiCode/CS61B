@@ -5,30 +5,29 @@ import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
     private double[] xInstance;
+    private int T;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException("N and T must more than 0.");
         }
         xInstance = new double[T];
+        this.T = T;
 
         for (int i = 0; i < T; i++) {
-            calculateOnce(i,N,T,pf.make(N));
-        }
-    }
-
-    private void calculateOnce(int i,int N,int T,Percolation percolation) {
-        while (percolation.percolates() == false) {
-            int seed = StdRandom.uniform(1000000);
-            StdRandom.setSeed(seed);
-            int row = StdRandom.uniform(0, N);
-            int col = StdRandom.uniform(0, N);
-            if (!percolation.isOpen(row, col)) {
-                percolation.open(row, col);
+            Percolation percolation = pf.make(N);
+            while (percolation.percolates() == false) {
+                int seed = StdRandom.uniform(1000000);
+                StdRandom.setSeed(seed);
+                int row = StdRandom.uniform(0, N);
+                int col = StdRandom.uniform(0, N);
+                if (!percolation.isOpen(row, col)) {
+                    percolation.open(row, col);
+                }
             }
+            double xt = Double.valueOf(percolation.numberOfOpenSites()) / Double.valueOf(N * N);
+            xInstance[i] = xt;
         }
-        double xt = Double.valueOf(percolation.numberOfOpenSites()) / Double.valueOf(N * N);
-        xInstance[i] = xt;
     }
 
     public double mean() {
