@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.Iterator;
+
 public class QuickSort {
     /**
      * Returns a new queue that contains the given queues catenated together.
@@ -47,8 +49,9 @@ public class QuickSort {
     private static <Item extends Comparable> void partition(
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
-        while(!unsorted.isEmpty()){
-            Item item = unsorted.dequeue();
+        Iterator<Item> it = unsorted.iterator();
+        while(it.hasNext()){
+            Item item = it.next();
             if(item.compareTo(pivot) < 0){
                 less.enqueue(item);
             }else if(item.compareTo(pivot) > 0){

@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.Iterator;
+
 public class MergeSort {
     /**
      * Removes and returns the smallest item that is in q1 or q2.
@@ -77,10 +79,10 @@ public class MergeSort {
         if(items.size() == 1) return makeSingleItemQueues(items).dequeue();
         if(items.size() == 0) return items;
         Queue<Item> l_items = new Queue<>(),r_items = new Queue<>();
-        int size = items.size();
-        for (int i = 0; i < size; i++) {
-            if(i < items.size() / 2) l_items.enqueue(items.dequeue());
-            else r_items.enqueue(items.dequeue());
+        Iterator<Item> it = items.iterator();
+        for (int i = 0; i < items.size(); i++) {
+            if(i < items.size() / 2) l_items.enqueue(it.next());
+            else r_items.enqueue(it.next());
         }
         l_items = mergeSort(l_items);
         r_items = mergeSort(r_items);
@@ -89,6 +91,11 @@ public class MergeSort {
 
     public static void main(String[] args) {
         Queue<Integer> students = new Queue<>();
+        students.enqueue(6);
+        students.enqueue(1);
+        students.enqueue(3);
+        students.enqueue(-1);
+        students.enqueue(9);
 
         System.out.print("before:");
         for (Integer num : students){
