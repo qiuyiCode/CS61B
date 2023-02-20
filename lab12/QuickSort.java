@@ -62,28 +62,26 @@ public class QuickSort {
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> quickSort(
             Queue<Item> items) {
-        if(items.size() == 0){
-            return new Queue<>();
-        }
-        if(items.size() == 1){
-            return items;
-        }
+        if(items.size() == 0) return new Queue<>();
+        if(items.size() == 1) return items;
+
         Item pivot = QuickSort.getRandomItem(items);
         Queue<Item> less = new Queue<>(),equal = new Queue<>(),greater = new Queue<>();
         partition(items,pivot,less,equal,greater);
-        less = catenate(less,equal);
-        return catenate(quickSort(less),quickSort(greater));
+
+        less = quickSort(less);
+        greater = quickSort(greater);
+
+        return catenate(catenate(less,equal),greater);
     }
 
     public static void main(String[] args) {
         Queue<Integer> students = new Queue<>();
-        students.enqueue(6);
-        students.enqueue(602);
-        students.enqueue(100);
-        students.enqueue(301);
-        students.enqueue(38);
-        students.enqueue(8);
+        students.enqueue(5);
         students.enqueue(1);
+        students.enqueue(10);
+        students.enqueue(2);
+        students.enqueue(3);
 
         System.out.print("before:");
         for (Integer num : students){
