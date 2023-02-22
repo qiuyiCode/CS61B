@@ -4,10 +4,11 @@ import javax.swing.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Board implements WorldState{
-    int tiles[][];
-    int N;
-    public Board(int[][] tiles){
+public class Board implements WorldState {
+    private int tiles[][];
+    private int N;
+
+    public Board(int[][] tiles) {
         this.N = tiles.length;
         this.tiles = new int[N][N];
         for (int i = 0; i < this.N; i++) {
@@ -16,73 +17,80 @@ public class Board implements WorldState{
             }
         }
     }
-    public int tileAt(int i,int j){
-        if((i < 0 || i > N-1) || (j < 0 || i > N-1)){
+
+    public int tileAt(int i, int j) {
+        if ((i < 0 || i > N - 1) || (j < 0 || i > N - 1)) {
             throw new IndexOutOfBoundsException("The index of i/j must within [0,N)");
         }
         return this.N != 0 ? tiles[i][j] : 0;
     }
-    public int size(){
+
+    public int size() {
         return this.N;
     }
 
-    private boolean isCorrectPos(int i,int j){
+    private boolean isCorrectPos(int i, int j) {
         int correct = i * this.N + j + 1;
         return this.tiles[i][j] == correct;
     }
-    public int hamming(){
+
+    public int hamming() {
         int rlt = 0;
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
-                if(this.tiles[i][j] == 0){
+                if (this.tiles[i][j] == 0) {
                     continue;
                 }
-                if(!isCorrectPos(i,j)){
+                if (!isCorrectPos(i, j)) {
                     rlt++;
                 }
             }
         }
         return rlt;
     }
-    private int singleManhattanDis(int i,int j){
+
+    private int singleManhattanDis(int i, int j) {
         int rec = this.tiles[i][j] - 1;
         int correctJ = rec % this.N;
         int correctI = (rec - correctJ) / this.N;
-        int rlt = Math.abs(correctI - i) + Math.abs(correctJ-j);
+        int rlt = Math.abs(correctI - i) + Math.abs(correctJ - j);
         return rlt;
     }
-    public int manhattan(){
+
+    public int manhattan() {
         int rlt = 0;
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
-                if(this.tiles[i][j] == 0){
+                if (this.tiles[i][j] == 0) {
                     continue;
                 }
-                rlt += singleManhattanDis(i,j);
+                rlt += singleManhattanDis(i, j);
             }
         }
         return rlt;
     }
 
-    public boolean equals(Object y){
-        Board yy = (Board)y;
-        if(this.N != yy.N){
+    public boolean equals(Object y) {
+        Board yy = (Board) y;
+        if (this.N != yy.N) {
             return false;
         }
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
-                if(this.tileAt(i,j) != yy.tileAt(i,j)){
+                if (this.tileAt(i, j) != yy.tileAt(i, j)) {
                     return false;
                 }
             }
         }
         return true;
     }
+
     @Override
     public int estimatedDistanceToGoal() {
 //        return this.hamming();
         return this.manhattan();
     }
+
     @Override
     public Iterable<WorldState> neighbors() {
         Queue<WorldState> neighbors = new LinkedList<>();
@@ -117,13 +125,14 @@ public class Board implements WorldState{
         }
         return neighbors;
     }
+
     public String toString() {
         StringBuilder s = new StringBuilder();
         int N = size();
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i,j)));
+                s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
         }
