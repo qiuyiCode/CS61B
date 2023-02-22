@@ -75,10 +75,11 @@ public class Solver {
                 }
             }
         }
+        this.minCounts = X.numberOfMoves;
     }
 
     public int moves() {
-        return this.solution.size() + 1;
+        return this.minCounts;
     }
 
     public Iterable<WorldState> solution() {
