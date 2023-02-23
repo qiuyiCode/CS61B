@@ -71,10 +71,20 @@ public class Board implements WorldState {
     }
 
     public boolean equals(Object y) {
+        if (this == y) {
+            return true;
+        }
+
+        if (y == null || y.getClass() != this.getClass()) {
+            return false;
+        }
+
         Board yy = (Board) y;
+
         if (this.N != yy.N) {
             return false;
         }
+
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 if (this.tileAt(i, j) != yy.tileAt(i, j)) {
@@ -83,6 +93,10 @@ public class Board implements WorldState {
             }
         }
         return true;
+    }
+
+    public int hashCode() {
+        return this.hashCode();
     }
 
     @Override

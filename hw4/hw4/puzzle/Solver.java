@@ -44,7 +44,11 @@ public class Solver {
             } else if (l < r) {
                 return -1;
             } else {
-                return 0;
+                if (o1.cacheOfEstimate > o2.cacheOfEstimate) {
+                    return 1;
+                } else {
+                    return -1;
+                }
             }
         }
     }
@@ -86,7 +90,4 @@ public class Solver {
         return this.solution;
     }
 
-    public int hashCode() {
-        return this.hashCode();
-    }
 }
