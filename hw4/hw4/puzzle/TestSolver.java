@@ -108,10 +108,10 @@ public class TestSolver {
             Solver s = new Solver(b);
             assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
             int l = 0;
-            for(WorldState a : s.solution()){
+            for (WorldState a : s.solution()) {
                 l++;
             }
-            assertEquals(s.moves()+1,l);
+            assertEquals(s.moves() + 1, l);
         }
     }
 
@@ -126,10 +126,10 @@ public class TestSolver {
             Solver s = new Solver(b);
             assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
             int l = 0;
-            for(WorldState a : s.solution()){
+            for (WorldState a : s.solution()) {
                 l++;
             }
-            assertEquals(s.moves()+1,l);
+            assertEquals(s.moves() + 1, l);
         }
     }
 
