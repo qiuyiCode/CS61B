@@ -80,6 +80,7 @@ public class TestSolver {
                     + wps.start + "->" + wps.goal;
 
             assertEquals(errorMessage, wps.numMoves, s.moves());
+
         }
     }
 
@@ -106,6 +107,11 @@ public class TestSolver {
             BoardPuzzleSolution bps = new BoardPuzzleSolution(puzzleName, b, numMoves);
             Solver s = new Solver(b);
             assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
+            int l = 0;
+            for(WorldState a : s.solution()){
+                l++;
+            }
+            assertEquals(s.moves()+1,l);
         }
     }
 
@@ -119,6 +125,11 @@ public class TestSolver {
             BoardPuzzleSolution bps = new BoardPuzzleSolution(puzzleName, b, numMoves);
             Solver s = new Solver(b);
             assertEquals("Wrong number of moves on " + puzzleName, bps.numMoves, s.moves());
+            int l = 0;
+            for(WorldState a : s.solution()){
+                l++;
+            }
+            assertEquals(s.moves()+1,l);
         }
     }
 
