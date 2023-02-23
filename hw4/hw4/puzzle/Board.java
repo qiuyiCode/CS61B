@@ -1,11 +1,10 @@
 package hw4.puzzle;
 
-import javax.swing.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Board implements WorldState {
-    private int tiles[][];
+    private int[][] tiles;
     private int N;
 
     public Board(int[][] tiles) {

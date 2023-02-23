@@ -2,7 +2,10 @@ package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Solver {
     private int minCounts;
@@ -64,13 +67,11 @@ public class Solver {
             }
             if (X.node.neighbors() != null) {
                 for (WorldState w : X.node.neighbors()) {
-                    if (X.preNode != null && w.equals(X.preNode)) {
+                    if (X.preNode != null && w.equals(X.preNode.node)) {
                         continue;
                     }
                     SearchNode newSearchNode = new SearchNode(w, X.numberOfMoves + 1, X);
-                    if (newSearchNode.cacheOfEstimate == -1) {
-                        newSearchNode.cacheOfEstimate = newSearchNode.node.estimatedDistanceToGoal();
-                    }
+                    newSearchNode.cacheOfEstimate = newSearchNode.node.estimatedDistanceToGoal();
                     pq.insert(newSearchNode);
                 }
             }
@@ -96,5 +97,4 @@ public class Solver {
         }
         return solution;
     }
-
 }
